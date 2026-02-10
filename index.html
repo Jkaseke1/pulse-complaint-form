@@ -589,6 +589,34 @@
             e.preventDefault();
             console.log('Form submission started');
             
+            // Check if form is valid
+            const isFormValid = form.checkValidity();
+            console.log('Form is valid:', isFormValid);
+            
+            if (!isFormValid) {
+                console.log('Form validation failed');
+                const invalidFields = form.querySelectorAll(':invalid');
+                console.log('Invalid fields:', invalidFields);
+                invalidFields.forEach(field => {
+                    console.log('Invalid field:', field.name, field.validationMessage);
+                });
+                
+                // Show validation error
+                const messageDiv = document.getElementById('message');
+                messageDiv.className = 'message error';
+                messageDiv.textContent = 'Please fill in all required fields marked with *';
+                messageDiv.style.display = 'block';
+                messageDiv.style.position = 'fixed';
+                messageDiv.style.top = '20px';
+                messageDiv.style.left = '50%';
+                messageDiv.style.transform = 'translateX(-50%)';
+                messageDiv.style.zIndex = '9999';
+                messageDiv.style.maxWidth = '90%';
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
+            
             const submitBtn = form.querySelector('.submit-btn');
             const messageDiv = document.getElementById('message');
             
