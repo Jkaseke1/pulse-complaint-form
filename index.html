@@ -324,7 +324,82 @@
 
         let productCount = 1;
 
-        function addProduct() {
+        // Function to toggle product fields based on complaint type
+        function toggleProductFields() {
+            const typeSelect = document.querySelector('select[name="Type"]');
+            const productSection = document.getElementById('productsContainer').closest('.form-group');
+            const selectedType = typeSelect.value;
+
+            // Show product fields only for product-related complaint types
+            const productTypes = ['Product Quality', 'Product Packaging', 'Expired Product', 'Wrong Product', 'Product Information'];
+            const showProducts = productTypes.includes(selectedType);
+
+            productSection.style.display = showProducts ? 'block' : 'none';
+
+            // Clear product data if hiding
+            if (!showProducts) {
+                productCount = 1;
+                document.getElementById('productsContainer').innerHTML = `
+                    <div class="product-entry" data-product-id="1">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h4 style="margin: 0; color: #333;">Product 1</h4>
+                            <button type="button" class="remove-product-btn" style="display: none;" onclick="removeProduct(1)">Remove</button>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                            <div>
+                                <label>Product Name <span class="required">*</span></label>
+                                <input type="text" name="ProductName_1" required placeholder="e.g., Paracetamol">
+                            </div>
+                            <div>
+                                <label>Batch Number</label>
+                                <input type="text" name="BatchNumber_1" placeholder="e.g., 12345">
+                            </div>
+                            <div>
+                                <label>Product Expiry Date</label>
+                                <input type="date" name="ExpiryDate_1">
+                            </div>
+                            <div>
+                                <label>Product Description <span class="required">*</span></label>
+                                <textarea name="ProductDescription_1" required placeholder="Please describe the specific issue with this product..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('addProductBtn').style.display = 'none';
+            } else {
+                document.getElementById('addProductBtn').style.display = 'block';
+            }
+        }
+
+        // Initialize form behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Form initialized');
+
+            // Set up type change listener
+            const typeSelect = document.querySelector('select[name="Type"]');
+            if (typeSelect) {
+                typeSelect.addEventListener('change', toggleProductFields);
+                // Initial check
+                toggleProductFields();
+            }
+
+            // Set up add product button
+            const addProductBtn = document.getElementById('addProductBtn');
+            if (addProductBtn) {
+                addProductBtn.addEventListener('click', function(e) {
+                    console.log('Add product button clicked');
+                    e.preventDefault();
+                    addProduct();
+                });
+                addProductBtn.addEventListener('touchstart', function(e) {
+                    console.log('Add product button touched');
+                    e.preventDefault();
+                    addProduct();
+                });
+            } else {
+                console.error('Add product button not found');
+            }
+        });
             productCount++;
             const productsContainer = document.getElementById('productsContainer');
             
