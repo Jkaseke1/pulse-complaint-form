@@ -223,11 +223,6 @@
                 <input type="tel" name="CustomerPhone" placeholder="e.g., 0771234567">
             </div>
 
-            <div class="form-group">
-                <label>Description <span class="required">*</span></label>
-                <textarea name="Description" required placeholder="Please provide detailed information about your complaint or query..."></textarea>
-            </div>
-
             <!-- Service/Account Section -->
             <div class="form-group service-section" id="serviceSection" style="display: none;">
                 <label>Service Details</label>
@@ -251,6 +246,10 @@
                                 <option value="Phone">Phone</option>
                                 <option value="In Person">In Person</option>
                             </select>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label>Service Description <span class="required">*</span></label>
+                            <textarea name="ServiceDescription" required placeholder="Please describe the specific service issue or request..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -276,6 +275,10 @@
                         <div>
                             <label>Tracking Number (if available)</label>
                             <input type="text" name="TrackingNumber" placeholder="e.g., TN-67890">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label>Delivery Description <span class="required">*</span></label>
+                            <textarea name="DeliveryDescription" required placeholder="Please describe the specific delivery issue..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -304,6 +307,10 @@
                                 <option value="High">High</option>
                                 <option value="Urgent">Urgent</option>
                             </select>
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label>Query Description <span class="required">*</span></label>
+                            <textarea name="QueryDescription" required placeholder="Please describe your query in detail..."></textarea>
                         </div>
                     </div>
                 </div>
