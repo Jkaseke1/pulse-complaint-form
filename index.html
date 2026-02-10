@@ -223,6 +223,87 @@
                 <input type="tel" name="CustomerPhone" placeholder="e.g., 0771234567">
             </div>
 
+            <!-- Service/Account Section -->
+            <div class="form-group service-section" id="serviceSection" style="display: none;">
+                <label>Service Details</label>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #007bff;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label>Service Type</label>
+                            <select name="ServiceType">
+                                <option value="">Select service type...</option>
+                                <option value="Account Opening">Account Opening</option>
+                                <option value="Account Updates">Account Updates</option>
+                                <option value="Credit Terms">Credit Terms</option>
+                                <option value="Statement Request">Statement Request</option>
+                                <option value="Technical Support">Technical Support</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Preferred Contact Method</label>
+                            <select name="PreferredContact">
+                                <option value="Email">Email</option>
+                                <option value="Phone">Phone</option>
+                                <option value="In Person">In Person</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Section -->
+            <div class="form-group delivery-section" id="deliverySection" style="display: none;">
+                <label>Delivery Details</label>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label>Order Number</label>
+                            <input type="text" name="OrderNumber" placeholder="e.g., ORD-12345">
+                        </div>
+                        <div>
+                            <label>Delivery Date</label>
+                            <input type="date" name="DeliveryDate">
+                        </div>
+                        <div>
+                            <label>Delivery Location</label>
+                            <input type="text" name="DeliveryLocation" placeholder="e.g., Harare CBD">
+                        </div>
+                        <div>
+                            <label>Tracking Number (if available)</label>
+                            <input type="text" name="TrackingNumber" placeholder="e.g., TN-67890">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Query Section -->
+            <div class="form-group query-section" id="querySection" style="display: none;">
+                <label>Query Details</label>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label>Department</label>
+                            <select name="QueryDepartment">
+                                <option value="">Select department...</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Product">Product</option>
+                                <option value="General">General</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Urgency Level</label>
+                            <select name="UrgencyLevel">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Urgent">Urgent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label>Products Involved <span class="required">*</span></label>
                 <div id="productsContainer">
@@ -324,20 +405,38 @@
 
         let productCount = 1;
 
-        // Function to toggle product fields based on complaint type
-        function toggleProductFields() {
+        // Function to toggle fields based on complaint type
+        function toggleFields() {
             const typeSelect = document.querySelector('select[name="Type"]');
             const productSection = document.getElementById('productsContainer').closest('.form-group');
+            const serviceSection = document.getElementById('serviceSection');
+            const deliverySection = document.getElementById('deliverySection');
+            const querySection = document.getElementById('querySection');
+            const addProductBtn = document.getElementById('addProductBtn');
+            
             const selectedType = typeSelect.value;
 
-            // Show product fields only for product-related complaint types
-            const productTypes = ['Product Quality', 'Product Packaging', 'Expired Product', 'Wrong Product', 'Product Information'];
-            const showProducts = productTypes.includes(selectedType);
+            // Hide all sections first
+            productSection.style.display = 'none';
+            if (serviceSection) serviceSection.style.display = 'none';
+            if (deliverySection) deliverySection.style.display = 'none';
+            if (querySection) querySection.style.display = 'none';
+            if (addProductBtn) addProductBtn.style.display = 'none';
 
-            productSection.style.display = showProducts ? 'block' : 'none';
+            // Show relevant section based on type
+            if (selectedType === 'Account Services') {
+                if (serviceSection) serviceSection.style.display = 'block';
+            } else if (selectedType === 'Delivery - Local' || selectedType === 'Delivery - Out of Harare') {
+                if (deliverySection) deliverySection.style.display = 'block';
+            } else if (selectedType.startsWith('Query')) {
+                if (querySection) querySection.style.display = 'block';
+            } else if (selectedType === 'Product Quality' || selectedType === 'Adverse Event' || selectedType === 'Product Portfolio') {
+                productSection.style.display = 'block';
+                if (addProductBtn) addProductBtn.style.display = 'block';
+            }
 
-            // Clear product data if hiding
-            if (!showProducts) {
+            // Clear product data if not showing products
+            if (productSection.style.display === 'none') {
                 productCount = 1;
                 document.getElementById('productsContainer').innerHTML = `
                     <div class="product-entry" data-product-id="1">
@@ -365,9 +464,6 @@
                         </div>
                     </div>
                 `;
-                document.getElementById('addProductBtn').style.display = 'none';
-            } else {
-                document.getElementById('addProductBtn').style.display = 'block';
             }
         }
 
@@ -378,9 +474,9 @@
             // Set up type change listener
             const typeSelect = document.querySelector('select[name="Type"]');
             if (typeSelect) {
-                typeSelect.addEventListener('change', toggleProductFields);
+                typeSelect.addEventListener('change', toggleFields);
                 // Initial check
-                toggleProductFields();
+                toggleFields();
             }
 
             // Set up add product button
