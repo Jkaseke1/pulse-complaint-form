@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback & Complaints - Pulse Pharmaceuticals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .required {
+            color: #e74c3c;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="file"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .sla-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .sla-info h3 {
+            color: #1976d2;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .sla-info ul {
+            margin-left: 20px;
+            color: #555;
+        }
+        .file-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Customer Feedback & Complaints</h1>
+            <p>Pulse Pharmaceuticals (Private) Limited</p>
+        </div>
+
+        <div class="sla-info">
+            <h3>What to Expect:</h3>
+            <ul>
+                <li>Initial response within 2 working days</li>
+                <li>Full resolution within 5 working days</li>
+                <li>You will receive a confirmation email with your reference number</li>
+            </ul>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <form id="complaintForm">
+            <div class="form-group">
+                <label>Category <span class="required">*</span></label>
+                <select name="Category" required>
+                    <option value="">Select...</option>
+                    <option value="Complaint">Complaint</option>
+                    <option value="Query">Query</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Type <span class="required">*</span></label>
+                <select name="Type" required>
+                    <option value="">Select...</option>
+                    <option value="Product Quality">Product Quality</option>
+                    <option value="Adverse Event">Adverse Event</option>
+                    <option value="Product Portfolio">Product Portfolio</option>
+                    <option value="Account Services">Account Services</option>
+                    <option value="Delivery - Local">Delivery - Local</option>
+                    <option value="Delivery - Out of Harare">Delivery - Out of Harare</option>
+                    <option value="Query - Sales">Query - Sales</option>
+                    <option value="Query - Marketing">Query - Marketing</option>
+                    <option value="Query - Product">Query - Product</option>
+                    <option value="Query - General">Query - General</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Your Name <span class="required">*</span></label>
+                <input type="text" name="CustomerName" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address <span class="required">*</span></label>
+                <input type="email" name="CustomerEmail" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="CustomerPhone" placeholder="e.g., 0771234567">
+            </div>
+
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="ProductName" placeholder="e.g., Paracetamol">
+            </div>
+
+            <div class="form-group">
+                <label>Batch Number</label>
+                <input type="text" name="BatchNumber" placeholder="e.g., 12345">
+            </div>
+
+            <div class="form-group">
+                <label>Product Expiry Date</label>
+                <input type="date" name="ExpiryDate">
+            </div>
+
+            <div class="form-group">
+                <label>Description <span class="required">*</span></label>
+                <textarea name="Description" required placeholder="Please describe your complaint or query in detail..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Attachments (Optional)</label>
+                <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" multiple>
+                <p class="file-note">Note: Attachments will need to be sent separately via email to jkaseke@tpg.co.zw with your reference number</p>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Complaint</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('complaintForm');
+        const messageDiv = document.getElementById('message');
+        const fileInput = document.getElementById('fileInput');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            const formData = new FormData(form);
+            const data = {};
+            
+            formData.forEach((value, key) => {
+                data[key] = value || 'N/A';
+            });
+
+            // Build email body
+            let emailBody = `New Customer Complaint Submission\n\n`;
+            emailBody += `Category: ${data.Category}\n`;
+            emailBody += `Type: ${data.Type}\n`;
+            emailBody += `Customer Name: ${data.CustomerName}\n`;
+            emailBody += `Customer Email: ${data.CustomerEmail}\n`;
+            emailBody += `Customer Phone: ${data.CustomerPhone}\n`;
+            emailBody += `Product Name: ${data.ProductName}\n`;
+            emailBody += `Batch Number: ${data.BatchNumber}\n`;
+            emailBody += `Expiry Date: ${data.ExpiryDate}\n\n`;
+            emailBody += `Description:\n${data.Description}\n\n`;
+            
+            const files = fileInput.files;
+            if (files.length > 0) {
+                emailBody += `\nAttachments: ${files.length} file(s) - ${Array.from(files).map(f => f.name).join(', ')}\n`;
+                emailBody += `(Files will be sent separately)\n`;
+            }
+
+            // Create mailto link
+            const subject = `Customer ${data.Category} - ${data.Type}`;
+            const mailtoLink = `mailto:complaints@pulse-pharmaceuticals.co.zw?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            setTimeout(() => {
+                messageDiv.className = 'message success';
+                messageDiv.textContent = '✓ Your email client has been opened. Please click Send in your email to complete the submission. You will receive a confirmation email with your reference number.';
+                messageDiv.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Complaint';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

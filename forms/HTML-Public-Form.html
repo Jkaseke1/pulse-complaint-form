@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback & Complaints - Pulse Pharmaceuticals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #0066cc 0%, #004999 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .form-content {
+            padding: 40px 30px;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: #dc3545;
+            margin-left: 3px;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .file-upload {
+            border: 2px dashed #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            border-color: #0066cc;
+            background: #f8f9fa;
+        }
+        
+        .file-upload input[type="file"] {
+            display: none;
+        }
+        
+        .file-upload-label {
+            cursor: pointer;
+            color: #0066cc;
+            font-weight: 600;
+        }
+        
+        .file-list {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #6c757d;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .success-message,
+        .error-message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 13px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .form-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 Pulse Pharmaceuticals</h1>
+            <p>Customer Feedback & Complaints Portal</p>
+        </div>
+        
+        <div class="form-content">
+            <div class="info-box">
+                <strong>📋 We Value Your Feedback</strong>
+                <p style="margin-top: 8px; font-size: 14px;">Your complaint or feedback is important to us. We aim to respond within 2 working days and resolve issues within 5 working days.</p>
+            </div>
+            
+            <div class="success-message" id="successMessage">
+                <strong>✓ Success!</strong> Your complaint has been submitted. You will receive a confirmation email shortly with your reference number.
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                <strong>✗ Error!</strong> <span id="errorText">Something went wrong. Please try again.</span>
+            </div>
+            
+            <form id="complaintForm">
+                <div class="form-group">
+                    <label>Category <span class="required">*</span></label>
+                    <select name="category" required>
+                        <option value="">-- Select Category --</option>
+                        <option value="Complaint">Complaint</option>
+                        <option value="Query">Query</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Type <span class="required">*</span></label>
+                    <select name="type" required>
+                        <option value="">-- Select Type --</option>
+                        <option value="Product Quality">Product Quality</option>
+                        <option value="Adverse Event">Adverse Event</option>
+                        <option value="Product Portfolio">Product Portfolio</option>
+                        <option value="Account Services">Account Services</option>
+                        <option value="Delivery - Local">Delivery - Local</option>
+                        <option value="Delivery - Out of Harare">Delivery - Out of Harare</option>
+                        <option value="Query - Sales">Query - Sales</option>
+                        <option value="Query - Marketing">Query - Marketing</option>
+                        <option value="Query - Product">Query - Product</option>
+                        <option value="Query - General">Query - General</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Your Name <span class="required">*</span></label>
+                        <input type="text" name="customerName" required placeholder="John Doe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email Address <span class="required">*</span></label>
+                        <input type="email" name="customerEmail" required placeholder="john@example.com">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="customerPhone" placeholder="+263 77 123 4567">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Product Name</label>
+                        <input type="text" name="productName" placeholder="e.g., Paracetamol 500mg">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Batch Number</label>
+                        <input type="text" name="batchNumber" placeholder="e.g., LOT12345">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Product Expiry Date</label>
+                    <input type="date" name="expiryDate">
+                </div>
+                
+                <div class="form-group">
+                    <label>Description <span class="required">*</span></label>
+                    <textarea name="description" required placeholder="Please provide detailed information about your complaint or query..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Attachments (Photos/Documents)</label>
+                    <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                        <label class="file-upload-label">
+                            📎 Click to upload files
+                        </label>
+                        <input type="file" id="fileInput" name="attachments" multiple accept="image/*,.pdf,.doc,.docx">
+                        <div class="file-list" id="fileList">No files selected</div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Submit Complaint
+                </button>
+            </form>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Pulse Pharmaceuticals (Private) Limited</strong></p>
+            <p>📧 complaints@tpg.co.zw | 📞 [Your Phone Number]</p>
+            <p style="margin-top: 10px;">SOP MK-03-02.01 | Committed to Quality Healthcare Solutions</p>
+        </div>
+    </div>
+    
+    <script>
+        // File upload display
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileList = document.getElementById('fileList');
+            const files = e.target.files;
+            
+            if (files.length > 0) {
+                const fileNames = Array.from(files).map(f => f.name).join(', ');
+                fileList.textContent = `${files.length} file(s) selected: ${fileNames}`;
+            } else {
+                fileList.textContent = 'No files selected';
+            }
+        });
+        
+        // Form submission
+        document.getElementById('complaintForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const successMsg = document.getElementById('successMessage');
+            const errorMsg = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            
+            // Hide messages
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+            
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                
+                // IMPORTANT: Replace this URL with your Power Automate HTTP trigger URL
+                const powerAutomateUrl = 'YOUR_POWER_AUTOMATE_HTTP_TRIGGER_URL_HERE';
+                
+                // Convert FormData to JSON
+                const data = {
+                    category: formData.get('category'),
+                    type: formData.get('type'),
+                    customerName: formData.get('customerName'),
+                    customerEmail: formData.get('customerEmail'),
+                    customerPhone: formData.get('customerPhone') || '',
+                    productName: formData.get('productName') || '',
+                    batchNumber: formData.get('batchNumber') || '',
+                    expiryDate: formData.get('expiryDate') || '',
+                    description: formData.get('description'),
+                    dateReceived: new Date().toISOString()
+                };
+                
+                // Handle file attachments (convert to base64)
+                const files = document.getElementById('fileInput').files;
+                if (files.length > 0) {
+                    data.attachments = [];
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const base64 = await fileToBase64(file);
+                        data.attachments.push({
+                            name: file.name,
+                            contentBytes: base64.split(',')[1]
+                        });
+                    }
+                }
+                
+                // Send to Power Automate
+                const response = await fetch(powerAutomateUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    // Success
+                    successMsg.style.display = 'block';
+                    this.reset();
+                    document.getElementById('fileList').textContent = 'No files selected';
+                    
+                    // Scroll to success message
+                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    throw new Error('Server responded with error');
+                }
+                
+            } catch (error) {
+                // Error
+                errorText.textContent = 'Unable to submit complaint. Please email us directly at complaints@tpg.co.zw';
+                errorMsg.style.display = 'block';
+                errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Complaint';
+            }
+        });
+        
+        // Helper function to convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+    </script>
+</body>
+</html>
