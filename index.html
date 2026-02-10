@@ -428,23 +428,65 @@
             
             const selectedType = typeSelect.value;
 
-            // Hide all sections first
+            // Hide all sections first and remove required attributes
             productSection.style.display = 'none';
-            if (serviceSection) serviceSection.style.display = 'none';
-            if (deliverySection) deliverySection.style.display = 'none';
-            if (querySection) querySection.style.display = 'none';
+            if (serviceSection) {
+                serviceSection.style.display = 'none';
+                const serviceDesc = serviceSection.querySelector('[name="ServiceDescription"]');
+                if (serviceDesc) serviceDesc.required = false;
+            }
+            if (deliverySection) {
+                deliverySection.style.display = 'none';
+                const deliveryDesc = deliverySection.querySelector('[name="DeliveryDescription"]');
+                if (deliveryDesc) deliveryDesc.required = false;
+            }
+            if (querySection) {
+                querySection.style.display = 'none';
+                const queryDesc = querySection.querySelector('[name="QueryDescription"]');
+                if (queryDesc) queryDesc.required = false;
+            }
             if (addProductBtn) addProductBtn.style.display = 'none';
 
-            // Show relevant section based on type
+            // Clear product required attributes when hiding
+            const productEntries = document.querySelectorAll('.product-entry');
+            productEntries.forEach(entry => {
+                const productName = entry.querySelector('[name^="ProductName_"]');
+                const productDesc = entry.querySelector('[name^="ProductDescription_"]');
+                if (productName) productName.required = false;
+                if (productDesc) productDesc.required = false;
+            });
+
+            // Show relevant section based on type and set required attributes
             if (selectedType === 'Account Services') {
-                if (serviceSection) serviceSection.style.display = 'block';
+                if (serviceSection) {
+                    serviceSection.style.display = 'block';
+                    const serviceDesc = serviceSection.querySelector('[name="ServiceDescription"]');
+                    if (serviceDesc) serviceDesc.required = true;
+                }
             } else if (selectedType === 'Delivery - Local' || selectedType === 'Delivery - Out of Harare') {
-                if (deliverySection) deliverySection.style.display = 'block';
+                if (deliverySection) {
+                    deliverySection.style.display = 'block';
+                    const deliveryDesc = deliverySection.querySelector('[name="DeliveryDescription"]');
+                    if (deliveryDesc) deliveryDesc.required = true;
+                }
             } else if (selectedType.startsWith('Query')) {
-                if (querySection) querySection.style.display = 'block';
+                if (querySection) {
+                    querySection.style.display = 'block';
+                    const queryDesc = querySection.querySelector('[name="QueryDescription"]');
+                    if (queryDesc) queryDesc.required = true;
+                }
             } else if (selectedType === 'Product Quality' || selectedType === 'Adverse Event' || selectedType === 'Product Portfolio') {
                 productSection.style.display = 'block';
                 if (addProductBtn) addProductBtn.style.display = 'block';
+                
+                // Set required attributes for visible product fields
+                const firstProductEntry = document.querySelector('.product-entry[data-product-id="1"]');
+                if (firstProductEntry) {
+                    const productName = firstProductEntry.querySelector('[name="ProductName_1"]');
+                    const productDesc = firstProductEntry.querySelector('[name="ProductDescription_1"]');
+                    if (productName) productName.required = true;
+                    if (productDesc) productDesc.required = true;
+                }
             }
 
             // Clear product data if not showing products
@@ -459,7 +501,7 @@
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
                             <div>
                                 <label>Product Name <span class="required">*</span></label>
-                                <input type="text" name="ProductName_1" required placeholder="e.g., Paracetamol">
+                                <input type="text" name="ProductName_1" placeholder="e.g., Paracetamol">
                             </div>
                             <div>
                                 <label>Batch Number</label>
@@ -471,7 +513,7 @@
                             </div>
                             <div>
                                 <label>Product Description <span class="required">*</span></label>
-                                <textarea name="ProductDescription_1" required placeholder="Please describe the specific issue with this product..."></textarea>
+                                <textarea name="ProductDescription_1" placeholder="Please describe the specific issue with this product..."></textarea>
                             </div>
                         </div>
                     </div>
