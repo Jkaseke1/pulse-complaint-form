@@ -394,6 +394,7 @@
 
         const complaintTypes = [
             { value: 'Product Quality', label: 'Product Quality' },
+            { value: 'Adverse Event', label: 'Adverse Event' },
             { value: 'Product Portfolio', label: 'Product Portfolio' },
             { value: 'Account Services', label: 'Account Services' },
             { value: 'Delivery - Harare', label: 'Delivery - Harare' },
@@ -480,7 +481,7 @@
                 const qd = document.querySelector('[name="QueryDescription"]');
                 if (qd) qd.required = true;
 
-            } else if (selectedType === 'Product Quality' || selectedType === 'Product Portfolio') {
+            } else if (selectedType === 'Product Quality' || selectedType === 'Adverse Event' || selectedType === 'Product Portfolio') {
                 productSection.style.display = 'block';
                 if (addProductBtn) addProductBtn.style.display = 'block';
                 designationGroup.style.display = 'block';
