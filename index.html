@@ -4,69 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Feedback & Complaints - Pulse Pharmaceuticals</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #f0f2f5;
             min-height: 100vh;
+            padding: 30px 16px;
         }
-        .container {
-            max-width: 700px;
+
+        .page-wrapper {
+            max-width: 720px;
             margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                margin: 10px;
-            }
-            .form-group {
-                margin-bottom: 20px;
-            }
-            .product-entry div[style*="grid-template-columns"] {
-                grid-template-columns: 1fr !important;
-                gap: 10px !important;
-            }
-            .file-upload {
-                padding: 20px !important;
-            }
-        }
-        .header {
+
+        /* Logo area */
+        .logo-area {
+            background: #ffffff;
+            border-radius: 12px 12px 0 0;
+            padding: 28px 36px 20px;
             text-align: center;
-            margin-bottom: 30px;
+            border-bottom: 3px solid #1a56db;
+        }
+        .logo-placeholder {
+            width: 160px;
+            height: 70px;
+            margin: 0 auto 10px;
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            background: #f7fafc;
+        }
+        .logo-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* Header */
+        .header {
+            background: #1a56db;
+            padding: 24px 36px;
+            text-align: center;
         }
         .header h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            margin-bottom: 4px;
         }
         .header p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
+            color: rgba(255,255,255,0.85);
+            font-size: 13px;
         }
-        .form-group {
-            margin-bottom: 20px;
+
+        /* Main form card */
+        .form-card {
+            background: #ffffff;
+            padding: 32px 36px;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
         }
+
+        /* SLA info */
+        .sla-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #1a56db;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 28px;
+        }
+        .sla-info h3 {
+            color: #1a56db;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+        }
+        .sla-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sla-info ul li {
+            color: #374151;
+            font-size: 13px;
+            padding: 2px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .sla-info ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #1a56db;
+            font-weight: 700;
+        }
+
+        /* Section divider */
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6b7280;
+            margin: 28px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Form groups */
+        .form-group { margin-bottom: 18px; }
+
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
+            margin-bottom: 6px;
+            color: #374151;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
         }
-        .required {
-            color: #e74c3c;
-        }
+        .required { color: #ef4444; }
+
         input[type="text"],
         input[type="email"],
         input[type="tel"],
@@ -74,114 +142,160 @@
         select,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
+            padding: 10px 14px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 8px;
             font-size: 14px;
-            transition: border-color 0.3s;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            color: #111827;
+            background: #ffffff;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-        input:focus,
-        select:focus,
-        textarea:focus {
+        input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1a56db;
+            box-shadow: 0 0 0 3px rgba(26,86,219,0.1);
         }
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        .file-upload {
-            border: 2px dashed #e0e0e0;
-            border-radius: 5px;
+        input::placeholder, textarea::placeholder { color: #9ca3af; }
+        textarea { min-height: 110px; resize: vertical; }
+        select { appearance: auto; }
+
+        /* Dynamic sections */
+        .dynamic-section {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
             padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 18px;
         }
-        .file-upload:hover {
-            border-color: #667eea;
-            background: #f8f9ff;
+        .dynamic-section label { color: #374151; }
+
+        /* Product entry */
+        .product-entry {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 14px;
         }
-        .file-upload input[type="file"] {
-            display: none;
+        .product-entry h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1a56db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 14px;
         }
-        .file-info {
-            margin-top: 10px;
-            font-size: 12px;
-            color: #666;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        .remove-product-btn {
+            background: #fee2e2;
+            color: #dc2626;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s;
         }
-        .submit-btn:hover {
-            transform: translateY(-2px);
+
+        /* File upload */
+        .file-upload {
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            padding: 24px;
+            text-align: center;
+            background: #f9fafb;
+            transition: all 0.2s;
         }
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .file-upload:hover { border-color: #1a56db; background: #eff6ff; }
+        .file-upload p { color: #6b7280; font-size: 14px; margin-bottom: 4px; }
+        .file-info { font-size: 12px; color: #9ca3af; margin-top: 6px; }
+
+        /* Add product btn */
+        #addProductBtn {
+            background: #1a56db;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: background 0.2s;
         }
+        #addProductBtn:hover { background: #1e40af; }
+
+        /* Submit button */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #1a56db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 10px;
+        }
+        .submit-btn:hover { background: #1e40af; transform: translateY(-1px); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* Messages */
         .message {
-            padding: 15px;
-            border-radius: 5px;
+            padding: 14px 18px;
+            border-radius: 8px;
             margin-bottom: 20px;
             display: none;
+            font-size: 14px;
         }
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .sla-info {
-            background: #e3f2fd;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .sla-info h3 {
-            color: #1976d2;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-        .sla-info ul {
-            margin-left: 20px;
-            color: #555;
+        .message.success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+        .message.error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body { padding: 0; }
+            .logo-area { padding: 20px; border-radius: 0; }
+            .header { padding: 18px 20px; }
+            .form-card { padding: 20px; border-radius: 0 0 10px 10px; }
+            .grid-2 { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="page-wrapper">
+        <!-- Logo Area -->
+        <div class="logo-area">
+            <div class="logo-placeholder" id="logoPlaceholder">
+                <img id="logoImg" src="" alt="Company Logo">
+                <span id="logoText">Company Logo</span>
+            </div>
+        </div>
+
+        <!-- Header -->
         <div class="header">
-            <h1>Customer Feedback & Complaints</h1>
+            <h1>Customer Feedback &amp; Complaints</h1>
             <p>Pulse Pharmaceuticals (Private) Limited</p>
         </div>
 
-        <div class="sla-info">
-            <h3>What to Expect:</h3>
-            <ul>
-                <li>Initial response within 2 working days</li>
-                <li>Full resolution within 5 working days</li>
-                <li>You will receive a confirmation email with your reference number</li>
-            </ul>
-        </div>
+        <!-- Form Card -->
+        <div class="form-card">
+            <div class="sla-info">
+                <h3>What to Expect</h3>
+                <ul>
+                    <li>Initial response within 2 working days</li>
+                    <li>Full resolution within 5 working days</li>
+                    <li>You will receive a confirmation email with your reference number</li>
+                </ul>
+            </div>
 
-        <div id="message" class="message"></div>
+            <div id="message" class="message"></div>
 
-        <form id="complaintForm">
+            <form id="complaintForm">
+                <p class="section-title">Complaint / Query Details</p>
             <div class="form-group">
                 <label>Category <span class="required">*</span></label>
                 <select name="Category" id="categorySelect" required>
@@ -198,6 +312,7 @@
                 </select>
             </div>
 
+                <p class="section-title">Your Information</p>
             <div class="form-group">
                 <label>Your Name <span class="required">*</span></label>
                 <input type="text" name="CustomerName" required placeholder="Full Name">
@@ -224,10 +339,10 @@
             </div>
 
             <!-- Account Services Section (Complaint) -->
-            <div class="form-group" id="serviceSection" style="display: none;">
-                <label>Account Services Details</label>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #007bff;">
-                    <div>
+            <div id="serviceSection" style="display: none;">
+                <p class="section-title">Account Services Details</p>
+                <div class="dynamic-section">
+                    <div class="form-group">
                         <label>Description <span class="required">*</span></label>
                         <textarea name="ServiceDescription" placeholder="Please describe the account services complaint..."></textarea>
                     </div>
@@ -235,27 +350,27 @@
             </div>
 
             <!-- Delivery Section -->
-            <div class="form-group" id="deliverySection" style="display: none;">
-                <label>Delivery Details</label>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745;">
+            <div id="deliverySection" style="display: none;">
+                <p class="section-title">Delivery Details</p>
+                <div class="dynamic-section">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
+                        <div class="form-group">
                             <label>Order Number</label>
                             <input type="text" name="OrderNumber" placeholder="e.g., ORD-12345">
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label>Delivery Date</label>
                             <input type="date" name="DeliveryDate">
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label>Tracking Number / C-Note (Swift)</label>
                             <input type="text" name="TrackingNumber" placeholder="e.g., TN-67890 or C-Note">
                         </div>
-                        <div>
+                        <div class="form-group">
                             <label>Delivery Location</label>
                             <input type="text" name="DeliveryLocation" placeholder="e.g., Harare CBD">
                         </div>
-                        <div style="grid-column: 1 / -1;">
+                        <div class="form-group" style="grid-column: 1 / -1;">
                             <label>Description <span class="required">*</span></label>
                             <textarea name="DeliveryDescription" placeholder="Please describe the delivery complaint..."></textarea>
                         </div>
@@ -264,11 +379,11 @@
             </div>
 
             <!-- Query Section -->
-            <div class="form-group" id="querySection" style="display: none;">
-                <label>Query Details</label>
-                <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107;">
+            <div id="querySection" style="display: none;">
+                <p class="section-title">Query Details</p>
+                <div class="dynamic-section">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div style="grid-column: 1 / -1;">
+                        <div class="form-group" style="grid-column: 1 / -1;">
                             <label>Location / City <span class="required">*</span></label>
                             <select name="QueryLocation">
                                 <option value="">Select location...</option>
@@ -283,7 +398,7 @@
                                 <option value="Other">Other</option>
                             </select>
                         </div>
-                        <div style="grid-column: 1 / -1;">
+                        <div class="form-group" style="grid-column: 1 / -1;">
                             <label>Description <span class="required">*</span></label>
                             <textarea name="QueryDescription" placeholder="Please describe your query in detail..."></textarea>
                         </div>
@@ -291,35 +406,35 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Products Involved <span class="required">*</span></label>
+            <div id="productsSection" style="display:none;">
+                <p class="section-title">Products Involved</p>
                 <div id="productsContainer">
                     <div class="product-entry" data-product-id="1">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <h4 style="margin: 0; color: #333;">Product 1</h4>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h4>Product 1</h4>
                             <button type="button" class="remove-product-btn" style="display: none;" onclick="removeProduct(1)">Remove</button>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                            <div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                            <div class="form-group">
                                 <label>Product Name <span class="required">*</span></label>
-                                <input type="text" name="ProductName_1" required placeholder="e.g., Paracetamol">
+                                <input type="text" name="ProductName_1" placeholder="e.g., Paracetamol">
                             </div>
-                            <div>
+                            <div class="form-group">
                                 <label>Batch Number</label>
                                 <input type="text" name="BatchNumber_1" placeholder="e.g., 12345">
                             </div>
-                            <div>
+                            <div class="form-group">
                                 <label>Product Expiry Date</label>
                                 <input type="date" name="ExpiryDate_1">
                             </div>
-                            <div>
-                                <label>Product Description <span class="required">*</span></label>
-                                <textarea name="ProductDescription_1" required placeholder="Please describe the specific issue with this product..."></textarea>
+                            <div class="form-group">
+                                <label>Description <span class="required">*</span></label>
+                                <textarea name="ProductDescription_1" placeholder="Please describe the specific issue with this product..."></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button type="button" id="addProductBtn" onclick="addProduct()" onmousedown="addProduct()" onpointerdown="addProduct()" oncontextmenu="return false;" style="background: #28a745; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; margin-top: 15px; font-size: 18px; font-weight: bold; min-height: 50px; width: 100%; max-width: 350px; display: block; margin-left: auto; margin-right: auto; -webkit-tap-highlight-color: rgba(0,0,0,0); -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;">+ Add Another Product</button>
+                <button type="button" id="addProductBtn" onclick="addProduct()" onmousedown="addProduct()" onpointerdown="addProduct()" oncontextmenu="return false;">+ Add Another Product</button>
             </div>
 
             <div class="form-group">
@@ -332,8 +447,11 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">SUBMIT</button>
-        </form>
+            <div class="form-group" style="margin-top: 28px;">
+                <button type="submit" class="submit-btn">SUBMIT</button>
+            </div>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -426,7 +544,7 @@
         function toggleFields() {
             const typeSelect = document.getElementById('typeSelect');
             const categorySelect = document.getElementById('categorySelect');
-            const productSection = document.getElementById('productsContainer').closest('.form-group');
+            const productSection = document.getElementById('productsSection');
             const serviceSection = document.getElementById('serviceSection');
             const deliverySection = document.getElementById('deliverySection');
             const querySection = document.getElementById('querySection');
