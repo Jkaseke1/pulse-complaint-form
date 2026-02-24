@@ -184,7 +184,7 @@
         <form id="complaintForm">
             <div class="form-group">
                 <label>Category <span class="required">*</span></label>
-                <select name="Category" required>
+                <select name="Category" id="categorySelect" required>
                     <option value="">Select...</option>
                     <option value="Complaint">Complaint</option>
                     <option value="Query">Query</option>
@@ -193,24 +193,24 @@
 
             <div class="form-group">
                 <label>Type <span class="required">*</span></label>
-                <select name="Type" required>
+                <select name="Type" id="typeSelect" required>
                     <option value="">Select...</option>
-                    <option value="Product Quality">Product Quality</option>
-                    <option value="Adverse Event">Adverse Event</option>
-                    <option value="Product Portfolio">Product Portfolio</option>
-                    <option value="Account Services">Account Services</option>
-                    <option value="Delivery - Local">Delivery - Local</option>
-                    <option value="Delivery - Out of Harare">Delivery - Out of Harare</option>
-                    <option value="Query - Sales">Query - Sales</option>
-                    <option value="Query - Marketing">Query - Marketing</option>
-                    <option value="Query - Product">Query - Product</option>
-                    <option value="Query - General">Query - General</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>Your Name <span class="required">*</span></label>
-                <input type="text" name="CustomerName" required>
+                <input type="text" name="CustomerName" required placeholder="Full Name">
+            </div>
+
+            <div class="form-group" id="designationGroup" style="display:none;">
+                <label>Designation <span class="required">*</span></label>
+                <input type="text" name="Designation" placeholder="e.g., Pharmacist, Store Manager">
+            </div>
+
+            <div class="form-group" id="pharmacyGroup" style="display:none;">
+                <label>Pharmacy / Company Name <span class="required">*</span></label>
+                <input type="text" name="PharmacyName" placeholder="e.g., ABC Pharmacy">
             </div>
 
             <div class="form-group">
@@ -219,44 +219,23 @@
             </div>
 
             <div class="form-group">
-                <label>Phone Number</label>
-                <input type="tel" name="CustomerPhone" placeholder="e.g., 0771234567">
+                <label>Phone Number <span class="required">*</span></label>
+                <input type="tel" name="CustomerPhone" required placeholder="e.g., 0771234567">
             </div>
 
-            <!-- Service/Account Section -->
-            <div class="form-group service-section" id="serviceSection" style="display: none;">
-                <label>Service Details</label>
+            <!-- Account Services Section (Complaint) -->
+            <div class="form-group" id="serviceSection" style="display: none;">
+                <label>Account Services Details</label>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #007bff;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <label>Service Type</label>
-                            <select name="ServiceType">
-                                <option value="">Select service type...</option>
-                                <option value="Account Opening">Account Opening</option>
-                                <option value="Account Updates">Account Updates</option>
-                                <option value="Credit Terms">Credit Terms</option>
-                                <option value="Statement Request">Statement Request</option>
-                                <option value="Technical Support">Technical Support</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Preferred Contact Method</label>
-                            <select name="PreferredContact">
-                                <option value="Email">Email</option>
-                                <option value="Phone">Phone</option>
-                                <option value="In Person">In Person</option>
-                            </select>
-                        </div>
-                        <div style="grid-column: 1 / -1;">
-                            <label>Service Description <span class="required">*</span></label>
-                            <textarea name="ServiceDescription" required placeholder="Please describe the specific service issue or request..."></textarea>
-                        </div>
+                    <div>
+                        <label>Complaint Details <span class="required">*</span></label>
+                        <textarea name="ServiceDescription" placeholder="Please describe the account services complaint..."></textarea>
                     </div>
                 </div>
             </div>
 
             <!-- Delivery Section -->
-            <div class="form-group delivery-section" id="deliverySection" style="display: none;">
+            <div class="form-group" id="deliverySection" style="display: none;">
                 <label>Delivery Details</label>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745;">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
@@ -269,48 +248,44 @@
                             <input type="date" name="DeliveryDate">
                         </div>
                         <div>
+                            <label>Tracking Number / C-Note (Swift)</label>
+                            <input type="text" name="TrackingNumber" placeholder="e.g., TN-67890 or C-Note">
+                        </div>
+                        <div>
                             <label>Delivery Location</label>
                             <input type="text" name="DeliveryLocation" placeholder="e.g., Harare CBD">
                         </div>
-                        <div>
-                            <label>Tracking Number (if available)</label>
-                            <input type="text" name="TrackingNumber" placeholder="e.g., TN-67890">
-                        </div>
                         <div style="grid-column: 1 / -1;">
-                            <label>Delivery Description <span class="required">*</span></label>
-                            <textarea name="DeliveryDescription" required placeholder="Please describe the specific delivery issue..."></textarea>
+                            <label>Complaint Details <span class="required">*</span></label>
+                            <textarea name="DeliveryDescription" placeholder="Please describe the delivery complaint..."></textarea>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Query Section -->
-            <div class="form-group query-section" id="querySection" style="display: none;">
+            <div class="form-group" id="querySection" style="display: none;">
                 <label>Query Details</label>
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107;">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div>
-                            <label>Department</label>
-                            <select name="QueryDepartment">
-                                <option value="">Select department...</option>
-                                <option value="Sales">Sales</option>
-                                <option value="Marketing">Marketing</option>
-                                <option value="Product">Product</option>
-                                <option value="General">General</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Urgency Level</label>
-                            <select name="UrgencyLevel">
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
-                                <option value="Urgent">Urgent</option>
+                        <div style="grid-column: 1 / -1;">
+                            <label>Location / City <span class="required">*</span></label>
+                            <select name="QueryLocation">
+                                <option value="">Select location...</option>
+                                <option value="Harare">Harare</option>
+                                <option value="Bulawayo">Bulawayo</option>
+                                <option value="Mutare">Mutare</option>
+                                <option value="Gweru">Gweru</option>
+                                <option value="Masvingo">Masvingo</option>
+                                <option value="Kwekwe">Kwekwe</option>
+                                <option value="Chinhoyi">Chinhoyi</option>
+                                <option value="Bindura">Bindura</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div style="grid-column: 1 / -1;">
                             <label>Query Description <span class="required">*</span></label>
-                            <textarea name="QueryDescription" required placeholder="Please describe your query in detail..."></textarea>
+                            <textarea name="QueryDescription" placeholder="Please describe your query in detail..."></textarea>
                         </div>
                     </div>
                 </div>
@@ -351,7 +326,7 @@
                 <label>Attachments (Optional)</label>
                 <div class="file-upload">
                     <p>📎 Tap to upload files</p>
-                    <p class="file-info">Images, PDFs, Documents (Max 10MB)</p>
+                    <p class="file-info" id="attachmentHint">Images, PDFs, Documents (Max 10MB)</p>
                     <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx" multiple style="display: block; margin: 10px auto; padding: 10px; border: 2px dashed #007bff; border-radius: 5px; background: #f8f9fa; cursor: pointer; width: 100%; max-width: 300px;">
                     <div id="fileList"></div>
                 </div>
@@ -417,79 +392,112 @@
 
         let productCount = 1;
 
-        // Function to toggle fields based on complaint type
+        const complaintTypes = [
+            { value: 'Product Quality', label: 'Product Quality' },
+            { value: 'Product Portfolio', label: 'Product Portfolio' },
+            { value: 'Account Services', label: 'Account Services' },
+            { value: 'Delivery - Harare', label: 'Delivery - Harare' },
+            { value: 'Delivery - Out of Harare', label: 'Delivery - Out of Harare' }
+        ];
+
+        const queryTypes = [
+            { value: 'Service', label: 'Service' },
+            { value: 'Accounts', label: 'Accounts' },
+            { value: 'Product', label: 'Product' },
+            { value: 'Marketing Support', label: 'Marketing Support' },
+            { value: 'General Query', label: 'General Query' }
+        ];
+
+        function populateTypes() {
+            const category = document.getElementById('categorySelect').value;
+            const typeSelect = document.getElementById('typeSelect');
+            typeSelect.innerHTML = '<option value="">Select...</option>';
+            const types = category === 'Complaint' ? complaintTypes : category === 'Query' ? queryTypes : [];
+            types.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t.value;
+                opt.textContent = t.label;
+                typeSelect.appendChild(opt);
+            });
+            toggleFields();
+        }
+
         function toggleFields() {
-            const typeSelect = document.querySelector('select[name="Type"]');
+            const typeSelect = document.getElementById('typeSelect');
+            const categorySelect = document.getElementById('categorySelect');
             const productSection = document.getElementById('productsContainer').closest('.form-group');
             const serviceSection = document.getElementById('serviceSection');
             const deliverySection = document.getElementById('deliverySection');
             const querySection = document.getElementById('querySection');
             const addProductBtn = document.getElementById('addProductBtn');
-            
-            const selectedType = typeSelect.value;
+            const designationGroup = document.getElementById('designationGroup');
+            const pharmacyGroup = document.getElementById('pharmacyGroup');
+            const attachmentHint = document.getElementById('attachmentHint');
 
-            // Hide all sections first and remove required attributes
+            const selectedType = typeSelect ? typeSelect.value : '';
+            const selectedCategory = categorySelect ? categorySelect.value : '';
+
+            // Hide all dynamic sections
             productSection.style.display = 'none';
-            if (serviceSection) {
-                serviceSection.style.display = 'none';
-                const serviceDesc = serviceSection.querySelector('[name="ServiceDescription"]');
-                if (serviceDesc) serviceDesc.required = false;
-            }
-            if (deliverySection) {
-                deliverySection.style.display = 'none';
-                const deliveryDesc = deliverySection.querySelector('[name="DeliveryDescription"]');
-                if (deliveryDesc) deliveryDesc.required = false;
-            }
-            if (querySection) {
-                querySection.style.display = 'none';
-                const queryDesc = querySection.querySelector('[name="QueryDescription"]');
-                if (queryDesc) queryDesc.required = false;
-            }
+            serviceSection.style.display = 'none';
+            deliverySection.style.display = 'none';
+            querySection.style.display = 'none';
+            designationGroup.style.display = 'none';
+            pharmacyGroup.style.display = 'none';
             if (addProductBtn) addProductBtn.style.display = 'none';
 
-            // Clear product required attributes when hiding
-            const productEntries = document.querySelectorAll('.product-entry');
-            productEntries.forEach(entry => {
-                const productName = entry.querySelector('[name^="ProductName_"]');
-                const productDesc = entry.querySelector('[name^="ProductDescription_"]');
-                if (productName) productName.required = false;
-                if (productDesc) productDesc.required = false;
+            // Remove required from all dynamic fields
+            ['ServiceDescription','DeliveryDescription','QueryDescription'].forEach(n => {
+                const el = document.querySelector(`[name="${n}"]`);
+                if (el) el.required = false;
             });
+            document.querySelectorAll('.product-entry').forEach(entry => {
+                const pn = entry.querySelector('[name^="ProductName_"]');
+                const pd = entry.querySelector('[name^="ProductDescription_"]');
+                if (pn) pn.required = false;
+                if (pd) pd.required = false;
+            });
+            const designation = document.querySelector('[name="Designation"]');
+            const pharmacy = document.querySelector('[name="PharmacyName"]');
+            if (designation) designation.required = false;
+            if (pharmacy) pharmacy.required = false;
 
-            // Show relevant section based on type and set required attributes
+            // Reset attachment hint
+            if (attachmentHint) attachmentHint.textContent = 'Images, PDFs, Documents (Max 10MB)';
+
             if (selectedType === 'Account Services') {
-                if (serviceSection) {
-                    serviceSection.style.display = 'block';
-                    const serviceDesc = serviceSection.querySelector('[name="ServiceDescription"]');
-                    if (serviceDesc) serviceDesc.required = true;
-                }
-            } else if (selectedType === 'Delivery - Local' || selectedType === 'Delivery - Out of Harare') {
-                if (deliverySection) {
-                    deliverySection.style.display = 'block';
-                    const deliveryDesc = deliverySection.querySelector('[name="DeliveryDescription"]');
-                    if (deliveryDesc) deliveryDesc.required = true;
-                }
-            } else if (selectedType.startsWith('Query')) {
-                if (querySection) {
-                    querySection.style.display = 'block';
-                    const queryDesc = querySection.querySelector('[name="QueryDescription"]');
-                    if (queryDesc) queryDesc.required = true;
-                }
-            } else if (selectedType === 'Product Quality' || selectedType === 'Adverse Event' || selectedType === 'Product Portfolio') {
+                serviceSection.style.display = 'block';
+                const sd = document.querySelector('[name="ServiceDescription"]');
+                if (sd) sd.required = true;
+
+            } else if (selectedType === 'Delivery - Harare' || selectedType === 'Delivery - Out of Harare') {
+                deliverySection.style.display = 'block';
+                const dd = document.querySelector('[name="DeliveryDescription"]');
+                if (dd) dd.required = true;
+
+            } else if (selectedCategory === 'Query') {
+                querySection.style.display = 'block';
+                const qd = document.querySelector('[name="QueryDescription"]');
+                if (qd) qd.required = true;
+
+            } else if (selectedType === 'Product Quality' || selectedType === 'Product Portfolio') {
                 productSection.style.display = 'block';
                 if (addProductBtn) addProductBtn.style.display = 'block';
-                
-                // Set required attributes for visible product fields
-                const firstProductEntry = document.querySelector('.product-entry[data-product-id="1"]');
-                if (firstProductEntry) {
-                    const productName = firstProductEntry.querySelector('[name="ProductName_1"]');
-                    const productDesc = firstProductEntry.querySelector('[name="ProductDescription_1"]');
-                    if (productName) productName.required = true;
-                    if (productDesc) productDesc.required = true;
+                designationGroup.style.display = 'block';
+                pharmacyGroup.style.display = 'block';
+                if (designation) designation.required = true;
+                if (pharmacy) pharmacy.required = true;
+                if (attachmentHint) attachmentHint.textContent = 'Images, PDFs, Documents (Max 10MB) — For product complaints, please include a photo showing the batch number and visible issue.';
+                const firstEntry = document.querySelector('.product-entry[data-product-id="1"]');
+                if (firstEntry) {
+                    const pn = firstEntry.querySelector('[name="ProductName_1"]');
+                    const pd = firstEntry.querySelector('[name="ProductDescription_1"]');
+                    if (pn) pn.required = true;
+                    if (pd) pd.required = true;
                 }
             }
 
-            // Clear product data if not showing products
+            // Clear product container when hiding
             if (productSection.style.display === 'none') {
                 productCount = 1;
                 document.getElementById('productsContainer').innerHTML = `
@@ -512,7 +520,7 @@
                                 <input type="date" name="ExpiryDate_1">
                             </div>
                             <div>
-                                <label>Product Description <span class="required">*</span></label>
+                                <label>Complaint Details <span class="required">*</span></label>
                                 <textarea name="ProductDescription_1" placeholder="Please describe the specific issue with this product..."></textarea>
                             </div>
                         </div>
@@ -525,29 +533,28 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Form initialized');
 
-            // Set up type change listener
-            const typeSelect = document.querySelector('select[name="Type"]');
+            const categorySelect = document.getElementById('categorySelect');
+            const typeSelect = document.getElementById('typeSelect');
+
+            if (categorySelect) {
+                categorySelect.addEventListener('change', populateTypes);
+            }
             if (typeSelect) {
                 typeSelect.addEventListener('change', toggleFields);
-                // Initial check
-                toggleFields();
             }
 
-            // Set up add product button
+            populateTypes();
+
             const addProductBtn = document.getElementById('addProductBtn');
             if (addProductBtn) {
                 addProductBtn.addEventListener('click', function(e) {
-                    console.log('Add product button clicked');
                     e.preventDefault();
                     addProduct();
                 });
                 addProductBtn.addEventListener('touchstart', function(e) {
-                    console.log('Add product button touched');
                     e.preventDefault();
                     addProduct();
                 });
-            } else {
-                console.error('Add product button not found');
             }
         });
 
